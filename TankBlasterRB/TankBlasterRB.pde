@@ -15,9 +15,6 @@ boolean debug = false;
 
 PImage terrain;
 
-color saas = #CBCB7D;
-color sees = #745A06;
-
 //---FUNCTIONS---
 
 void generateTerrain() {
@@ -43,7 +40,7 @@ void setTerrainHeight(int x, float altitude) {
 
   // Fill pixels below with ground
   for (int y=(int)altitude; y<height; ++y) {
-    terrain.pixels[x + y*terrain.width] = color(y/5, y/10, 0);
+    terrain.pixels[x + y*terrain.width] = color(512-(y/2.5), 512-(y/2.25), 512-(y/1.3));
   }
 }
 
