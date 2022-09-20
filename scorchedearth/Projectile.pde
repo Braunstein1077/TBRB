@@ -44,7 +44,7 @@ class Projectile {
     terrainTexture.loadPixels();
     if (terrainTexture.pixels[roundedX + roundedY*terrainTexture.width] == TERRAIN_COLOR) {
       // Collision! We've hit a solid pixel in the terrain texture
-      activeExplosions.add(new Explosion(pos, 100));
+      activeExplosions.add(new Explosion(pos,  explosionRadius));
       isDead = true;
     }
     terrainTexture.updatePixels();

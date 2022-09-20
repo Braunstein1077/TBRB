@@ -9,14 +9,14 @@ final float MAX_WIND_SPEED = 5f;
 final float MAX_LAUNCH_SPEED = 200f;
 
 // Visual constants
-final float SCALE_FACTOR = 0.5;
+final float SCALE_FACTOR = 3;
 
 final color AIR_COLOR = color(0,0,0,0);
 final color TERRAIN_COLOR = color(30, 180, 60);
 
-final float NOISE_SCALE = 0.0009f;
+final float NOISE_SCALE = 0.008f;
 
-final int TANK_SIZE = 12;
+final int TANK_SIZE = 6;
 
 // UI constants
 final float MAX_POWER_HOLD_SECONDS = 2f;

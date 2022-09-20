@@ -1,8 +1,8 @@
 class ClusterBomb extends Projectile {
-  final int CHILD_COUNT = 10;
-  final float SPREAD_ANGLE = PI*0.1;
+  final int CHILD_COUNT = 5;
+  final float SPREAD_ANGLE = PI*0.25;
   final float CHILD_SPEED = 12f;
-  final float CHILD_EXPLOSION_RADIUS = 20f;
+  final float CHILD_EXPLOSION_RADIUS = 8f;
   
   public ClusterBomb(PVector pos, PVector vel, color col, float explosionRadius) {
     super(pos, vel, col, explosionRadius);
