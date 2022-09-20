@@ -9,6 +9,7 @@ import java.util.List;
 //---VARIABLES---
 
 final float noise_scale = 0.003f;
+float offset;
 
 boolean debug = false;
 
@@ -18,7 +19,7 @@ PImage terrain;
 
 void generateTerrain() {
   noiseSeed(millis());
-  
+
   terrain = createImage(width, height, ARGB);
   terrain.loadPixels();
   for (int x=0; x<width; ++x) {
@@ -33,34 +34,45 @@ void generateTerrain() {
 void setTerrainHeight(int x, float altitude) {
   // Fill pixels above with empty space
   for (int y=0; y<(int)altitude; ++y) {
-    terrain.pixels[x + y*terrain.width] = color((y/5), 15, y+50);;
+    terrain.pixels[x + y*terrain.width] = color((y/5), 15, y+50);
+    ;
   }
-  
+
   // Fill pixels below with ground
   for (int y=(int)altitude; y<height; ++y) {
     terrain.pixels[x + y*terrain.width] = color(229, 165, 44-(y/10));
   }
 }
 
+void debug() {
+  if (debug == true) {
+    text("DEBUG", offset, offset);
+  }
+}
+
 //---SETUP AND PROGRAM LOOP---
 
 void setup() {
- size(1920, 1080);
- generateTerrain();
+  size(1920, 1080);
+  offset = width / 100;
+  generateTerrain();
 }
 
 void draw() {
   image(terrain, 0, 0);
+  debug();
 }
 
 //KEYS
 
 void keyPressed() {
- if (key == CONTROL) {
-   if (debug == false) {
-     debug = true;
-   } else {
-     debug = false;
-   }
- }
+  if (key == CODED) {
+    if (keyCode == 17) {
+      if (debug == false) {
+        debug = true;
+      } else {
+        debug = false;
+      }
+    }
+  }
 }
