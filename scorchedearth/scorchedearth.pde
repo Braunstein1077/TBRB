@@ -9,14 +9,14 @@ final float MAX_WIND_SPEED = 5f;
 final float MAX_LAUNCH_SPEED = 200f;
 
 // Visual constants
-final float SCALE_FACTOR = 3;
+final float SCALE_FACTOR = 0.5;
 
 final color AIR_COLOR = color(0,0,0,0);
 final color TERRAIN_COLOR = color(30, 180, 60);
 
-final float NOISE_SCALE = 0.01f;
+final float NOISE_SCALE = 0.0009f;
 
-final int TANK_SIZE = 6;
+final int TANK_SIZE = 12;
 
 // UI constants
 final float MAX_POWER_HOLD_SECONDS = 2f;
@@ -50,7 +50,7 @@ List<Projectile> activeProjectiles = new ArrayList<Projectile>();
 List<Explosion> activeExplosions = new ArrayList<Explosion>();
 
 void setup() {
-  size(1000, 600, P2D);
+  size(1920, 1080, P2D);
   WORLD_WIDTH = (int)Math.ceil(width / SCALE_FACTOR);
   WORLD_HEIGHT = (int)Math.ceil(height / SCALE_FACTOR);
   
