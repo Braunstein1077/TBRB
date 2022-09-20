@@ -8,12 +8,15 @@ import java.util.List;
 
 //---VARIABLES---
 
-final float noise_scale = 0.003f;
+final float noise_scale = 0.0024f;
 float offset;
 
 boolean debug = false;
 
 PImage terrain;
+
+color saas = #CBCB7D;
+color sees = #745A06;
 
 //---FUNCTIONS---
 
@@ -34,19 +37,24 @@ void generateTerrain() {
 void setTerrainHeight(int x, float altitude) {
   // Fill pixels above with empty space
   for (int y=0; y<(int)altitude; ++y) {
-    terrain.pixels[x + y*terrain.width] = color((y/5), 15, y+50);
+    terrain.pixels[x + y*terrain.width] = color(y/5, 15, y+50);
     ;
   }
 
   // Fill pixels below with ground
   for (int y=(int)altitude; y<height; ++y) {
-    terrain.pixels[x + y*terrain.width] = color(229, 165, 44-(y/10));
+    terrain.pixels[x + y*terrain.width] = color(y/5, y/10, 0);
   }
 }
 
 void debug() {
   if (debug == true) {
     text("DEBUG", offset, offset);
+    text(mouseX + " " + mouseY, offset, offset * 2);
+    if (key == ' ') {
+     text("SPACE", offset, offset * 3); 
+    }
+    text(key, offset, offset * 3);
   }
 }
 
@@ -55,15 +63,17 @@ void debug() {
 void setup() {
   size(1920, 1080);
   offset = width / 100;
+  frameRate(120);
   generateTerrain();
 }
 
 void draw() {
+  background(0);
   image(terrain, 0, 0);
   debug();
 }
 
-//KEYS
+//---KEYS---
 
 void keyPressed() {
   if (key == CODED) {
