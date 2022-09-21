@@ -5,7 +5,7 @@ import java.util.List;
 int WORLD_WIDTH, WORLD_HEIGHT;
 
 final PVector GRAVITY = new PVector(0, 20);
-final float MAX_WIND_SPEED = 5f;
+final float MAX_WIND_SPEED = 500f;
 final float MAX_LAUNCH_SPEED = 200f;
 
 // Visual constants

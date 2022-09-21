@@ -1,6 +1,6 @@
 class Tank {
-  final float MIN_TURRET_ANGLE = -PI*0.9f;
-  final float MAX_TURRET_ANGLE = -PI*0.1f;
+  final float MIN_TURRET_ANGLE = -PI;
+  final float MAX_TURRET_ANGLE = 0;
   
   final float TURRET_LENGTH = 7;
   

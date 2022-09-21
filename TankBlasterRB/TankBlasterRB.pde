@@ -6,40 +6,95 @@
 import java.util.HashSet;
 import java.util.List;
 
-//---VARIABLES---
+//---CONSTANTS---
 
 final float noise_scale = 0.0024f;
+
+//---VARIABLES---
+
+int index_activePlayer;
+
 float offset;
+float previousMillis = millis();
 
 boolean debug = false;
 
 PImage terrain;
 
+//---GAME STATE---
+
+enum gameState {
+  aim, simulate
+}
+gameState state;
+
+enum item {
+  TraceShot("Trace Shot"),
+    Grenade("Grenade"),
+    AtomicBomb("Atomic Bomb"),
+    HBomb("H-Bomb");
+
+  public String name;
+  private item(String name) {
+    this.name = name;
+  }
+}
+item selectedItem;
+
+//---SETUP AND PROGRAM LOOP---
+
+void setup() {
+  size(1600, 900, P2D);
+  offset = width / 100;
+  frameRate(120);
+  roundStart();
+}
+
+void draw() {
+  image(terrain, 0, 0);
+  debug();
+}
+
 //---FUNCTIONS---
+
+void roundStart() {
+  generateTerrain();
+
+  state = gameState.aim;
+  index_activePlayer = int(random(0, 1));
+  selectedItem = item.Grenade;
+}
 
 void generateTerrain() {
   noiseSeed(millis());
 
   terrain = createImage(width, height, ARGB);
   terrain.loadPixels();
-  for (int x=0; x<width; ++x) {
-    // Determine terrain height at this point
+  for (int x = 0; x < width; ++x) {
     float altitude = map(noise(x*noise_scale), 0, 1, 0.2f*height, 0.8f*height);
-    // Fill in terrain up to this height
     setTerrainHeight(x, altitude);
   }
   terrain.updatePixels();
 }
 
-void setTerrainHeight(int x, float altitude) {
-  // Fill pixels above with empty space
-  for (int y=0; y<(int)altitude; ++y) {
-    terrain.pixels[x + y*terrain.width] = color(y/5, 15, y+50);
-    ;
-  }
+public PVector timeManagement() {
+  PVector time = new PVector();
 
-  // Fill pixels below with ground
-  for (int y=(int)altitude; y<height; ++y) {
+  float timeMillis = millis();
+  float deltaMillis = timeMillis - previousMillis;
+  float deltaSeconds = deltaMillis / 1000;
+  previousMillis = timeMillis;
+  time.x = timeMillis;
+  time.y = deltaMillis;
+  time.z = deltaSeconds;
+  return time;
+}
+
+void setTerrainHeight(int x, float altitude) {
+  for (int y = 0; y < (int)altitude; ++y) {
+    terrain.pixels[x + y*terrain.width] = color(y/5, 15, y+50);
+  }
+  for (int y = (int)altitude; y < height; ++y) {
     terrain.pixels[x + y*terrain.width] = color(512-(y/2.5), 512-(y/2.25), 512-(y/1.3));
   }
 }
@@ -49,37 +104,22 @@ void debug() {
     text("DEBUG", offset, offset);
     text(mouseX + " " + mouseY, offset, offset * 2);
     if (key == ' ') {
-     text("SPACE", offset, offset * 3); 
+      text("SPACE", offset, offset * 3);
     }
     text(key, offset, offset * 3);
+    text(timeManagement().x, offset, offset * 4);
+    text(timeManagement().z, offset, offset * 5);
   }
-}
-
-//---SETUP AND PROGRAM LOOP---
-
-void setup() {
-  size(1920, 1080);
-  offset = width / 100;
-  frameRate(120);
-  generateTerrain();
-}
-
-void draw() {
-  background(0);
-  image(terrain, 0, 0);
-  debug();
 }
 
 //---KEYS---
 
 void keyPressed() {
-  if (key == CODED) {
-    if (keyCode == 17) {
-      if (debug == false) {
-        debug = true;
-      } else {
-        debug = false;
-      }
+  if (keyCode == 17) {
+    if (debug == false) {
+      debug = true;
+    } else {
+      debug = false;
     }
   }
 }
