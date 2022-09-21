@@ -51,6 +51,18 @@ void setup() {
 }
 
 void draw() {
+  float timeMillis = millis();
+  float deltaMillis = timeMillis - previousMillis;
+  float deltaSeconds = deltaMillis / 1000f;
+  previousMillis = timeMillis;
+
+switch (state) {
+  case aim: {
+  }
+  case simulate: {
+  }
+}
+
   image(terrain, 0, 0);
   debug();
 }
@@ -75,19 +87,6 @@ void generateTerrain() {
     setTerrainHeight(x, altitude);
   }
   terrain.updatePixels();
-}
-
-public PVector timeManagement() {
-  PVector time = new PVector();
-
-  float timeMillis = millis();
-  float deltaMillis = timeMillis - previousMillis;
-  float deltaSeconds = deltaMillis / 1000;
-  previousMillis = timeMillis;
-  time.x = timeMillis;
-  time.y = deltaMillis;
-  time.z = deltaSeconds;
-  return time;
 }
 
 void setTerrainHeight(int x, float altitude) {
