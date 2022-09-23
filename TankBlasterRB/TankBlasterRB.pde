@@ -113,8 +113,9 @@ void setTerrainHeight(int x, float altitude) {
     terrain.pixels[x + y*terrain.width] = color(y/5, 15, y+50);
   }
   for (int y = (int)altitude; y < height; ++y) {
-    terrain.pixels[x + y*terrain.width] = color(512-(y/2.5), 512-(y/2.25), 512-(y/1.3));
-  }
+    float Baum=y+(height-altitude);
+  terrain.pixels[x + y*terrain.width] = color(950-(Baum/2.6), 950-(Baum/2.25), 920-(Baum/1.35));
+}
 }
 
 public Tank spawnTank(int spawnX, int cpuLevel, color col) {
@@ -138,6 +139,11 @@ void debug() {
       text("SPACE", offset, offset * 3);
     }
     text(key, offset, offset * 3);
+<<<<<<< Updated upstream
+=======
+    //text(timeManagement().x, offset, offset * 4);
+    //text(timeManagement().z, offset, offset * 5);
+>>>>>>> Stashed changes
   }
 }
 
