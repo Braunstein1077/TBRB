@@ -10,9 +10,12 @@ import java.util.List;
 
 final float noise_scale = 0.0024f;
 
+final int tankSize = 6;
+
 //---VARIABLES---
 
 int index_activePlayer;
+int playerCount = 9;
 
 float offset;
 float previousMillis = millis();
@@ -20,6 +23,9 @@ float previousMillis = millis();
 boolean debug = false;
 
 PImage terrain;
+
+Tank[] tanks;
+Player[] players = new Player[playerCount];
 
 //---GAME STATE---
 
@@ -47,7 +53,12 @@ void setup() {
   size(1600, 900, P2D);
   offset = width / 100;
   frameRate(120);
-  roundStart();
+
+  for (int i=1; i < playerCount; i++) {
+    players[i] = new Player(i, 0, "Baum " + i, color(int(random(0, 255)), int(random(0, 255)), int(random(0, 255))));
+  }
+
+  roundStart(players.length);
 }
 
 void draw() {
@@ -56,12 +67,14 @@ void draw() {
   float deltaSeconds = deltaMillis / 1000f;
   previousMillis = timeMillis;
 
-switch (state) {
-  case aim: {
+  switch (state) {
+  case aim:
+    {
+    }
+  case simulate:
+    {
+    }
   }
-  case simulate: {
-  }
-}
 
   image(terrain, 0, 0);
   debug();
@@ -69,8 +82,14 @@ switch (state) {
 
 //---FUNCTIONS---
 
-void roundStart() {
+void roundStart(int playerCount) {
   generateTerrain();
+
+  tanks = new Tank[playerCount];
+
+  for (int i = 1; i<players.length; i++) {
+    tanks[i] = spawnTank((width/(players.length + 1)) * i, players[i].getcpuLevel(), players[i].getColor());
+  }
 
   state = gameState.aim;
   index_activePlayer = int(random(0, 1));
@@ -98,6 +117,19 @@ void setTerrainHeight(int x, float altitude) {
   }
 }
 
+public Tank spawnTank(int spawnX, int cpuLevel, color col) {
+  float altitude = map(noise(spawnX*noise_scale), 0, 1, 0.2f*height, 0.8f*height);
+
+  terrain.loadPixels();
+  for (int x=spawnX-tankSize/2; x<spawnX+tankSize/2; ++x) {
+    setTerrainHeight(x, altitude);
+  }
+
+  terrain.updatePixels();
+
+  return new Tank(new PVector(spawnX, altitude), cpuLevel, col);
+}
+
 void debug() {
   if (debug == true) {
     text("DEBUG", offset, offset);
@@ -106,8 +138,6 @@ void debug() {
       text("SPACE", offset, offset * 3);
     }
     text(key, offset, offset * 3);
-    text(timeManagement().x, offset, offset * 4);
-    text(timeManagement().z, offset, offset * 5);
   }
 }
 
