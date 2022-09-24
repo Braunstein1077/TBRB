@@ -139,11 +139,8 @@ void debug() {
       text("SPACE", offset, offset * 3);
     }
     text(key, offset, offset * 3);
-<<<<<<< Updated upstream
-=======
     //text(timeManagement().x, offset, offset * 4);
     //text(timeManagement().z, offset, offset * 5);
->>>>>>> Stashed changes
   }
 }
 
