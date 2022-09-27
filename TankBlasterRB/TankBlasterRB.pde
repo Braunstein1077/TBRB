@@ -15,7 +15,7 @@ final int tankSize = 6;
 //---VARIABLES---
 
 int index_activePlayer;
-int playerCount = 9;
+int playerCount = 50;
 
 float offset;
 float previousMillis = millis();
@@ -148,13 +148,3 @@ void debug() {
 }
 
 //---KEYS---
-
-void keyPressed() {
-  if (keyCode == 17) {
-    if (debug == false) {
-      debug = true;
-    } else {
-      debug = false;
-    }
-  }
-}
