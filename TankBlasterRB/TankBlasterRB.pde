@@ -77,6 +77,9 @@ void draw() {
   }
 
   image(terrain, 0, 0);
+  for (int i=1; i<tanks.length; i++) {
+    tanks[i].draw();
+  }
   debug();
 }
 
@@ -88,7 +91,7 @@ void roundStart(int playerCount) {
   tanks = new Tank[playerCount];
 
   for (int i = 1; i<players.length; i++) {
-    tanks[i] = spawnTank((width/(players.length + 1)) * i, players[i].getcpuLevel(), players[i].getColor());
+    tanks[i] = spawnTank((width/(players.length)) * i, players[i].getcpuLevel(), players[i].getColor());
   }
 
   state = gameState.aim;
