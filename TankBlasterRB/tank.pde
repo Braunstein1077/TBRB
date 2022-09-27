@@ -54,7 +54,7 @@ class Tank {
     strokeWeight(1);
     noFill();
     rotate(angle);
-    line(2, 0, 7, 0);
+    line(2, 0, 13, 0);
 
     popMatrix();
   }

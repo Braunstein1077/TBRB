@@ -10,12 +10,12 @@ import java.util.List;
 
 final float noise_scale = 0.0024f;
 
-final int tankSize = 6;
+final int tankSize = 12;
 
 //---VARIABLES---
 
 int index_activePlayer;
-int playerCount = 9;
+int playerCount = 2;
 
 float offset;
 float previousMillis = millis();
@@ -25,7 +25,7 @@ boolean debug = false;
 PImage terrain;
 
 Tank[] tanks;
-Player[] players = new Player[playerCount];
+Player[] players = new Player[playerCount + 1];
 
 //---GAME STATE---
 
@@ -54,8 +54,8 @@ void setup() {
   offset = width / 100;
   frameRate(120);
 
-  for (int i=1; i < playerCount; i++) {
-    players[i] = new Player(i, 0, "Baum " + i, color(int(random(0, 255)), int(random(0, 255)), int(random(0, 255))));
+  for (int i=1; i < playerCount + 1; i++) {
+    players[i] = new Player(i, 0, "Baum " + i, color(int(random(0, 255)), int(random(0, 255)), int(random(0, 255))), new Item[2]);
   }
 
   roundStart(players.length);
@@ -88,7 +88,7 @@ void draw() {
 void roundStart(int playerCount) {
   generateTerrain();
 
-  tanks = new Tank[playerCount];
+  tanks = new Tank[playerCount ];
 
   for (int i = 1; i<players.length; i++) {
     tanks[i] = spawnTank((width/(players.length)) * i, players[i].getcpuLevel(), players[i].getColor());
